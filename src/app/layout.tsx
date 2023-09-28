@@ -1,6 +1,8 @@
+import NavigationBar from '@/components/ui/navigation-bar-footer/navigation-bar/navigation-bar'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import Footer from '@/components/ui/navigation-bar-footer/footer/footer'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,7 +18,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <NavigationBar />
       <body className={inter.className}>{children}</body>
+      <Footer />
     </html>
   )
 }
