@@ -15,7 +15,7 @@ export default function Navbar() {
   }
 
   return (
-    <div className="h-[64px] w-screen bg-[#3F6C29] flex items-center px-4 sm:px-12 md:px-20 lg:px-24 xl:px-32 py-8 justify-between sticky top-0 left-0 z-10">
+    <div className="h-[64px] w-full bg-[#3F6C29] flex items-center px-4 sm:px-12 md:px-20 lg:px-24 xl:px-32 py-8 justify-between sticky top-0 left-0 z-50">
       <Link href="/">
         <Image
           src="/logo/temanmuncak.png"
@@ -31,9 +31,9 @@ export default function Navbar() {
             <p
               className={`${
                 selectedItem === data.name
-                  ? 'underline underline-offset-4 font-bold'
+                  ? 'underline underline-offset-4 font-bold text-xl'
                   : ''
-              } hover:font-bold transition-all ease-in duration-100 `}
+              } text-xl hover:font-bold transition-all ease-in duration-100 `}
               onClick={() => setSelectedItem(data.name)}>
               {data.name}
             </p>
