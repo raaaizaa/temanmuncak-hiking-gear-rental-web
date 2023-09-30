@@ -14,7 +14,7 @@ export default function MountainGrid() {
       </div>
       <div className='flex justify-center items-center'>
         <NextUIProvider>
-          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-8 xl:gap-16">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-8 xl:gap-16">
             {mountainItem.map((data, index) => (
               <MountainCard
                 key={index}

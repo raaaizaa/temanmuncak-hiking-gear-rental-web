@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <div className="flex bg-black w-full justify-between px-4 sm:px-12 md:px-20 lg:px-24 xl:px-32 py-24 items-center text-white z-10">
       <div className="w-[250px]">
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center pb-6">
           <Image
             src="/logo/temanmuncak.png"
             alt="temanmuncak"
