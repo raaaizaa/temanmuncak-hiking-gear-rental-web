@@ -17,7 +17,7 @@ export default function TrekkingItemCard({ name, price, image, onClick }: props)
       <CardBody className="bottom-0 absolute">
         <div className="pb-6">
           <p className="font-bold text-xl">{name}</p>
-          <p>Rp{price}</p>
+          <p>Rp{price}/hari</p>
         </div>
         <div className='flex'>
           <Button variant="solid" className="bg-[#3F6C29] text-white w-full" onClick={onClick}>

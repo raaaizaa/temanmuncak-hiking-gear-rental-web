@@ -1,6 +1,6 @@
 'use client'
 import { mountainItem } from '@/components/constants/mountain-item'
-import { trekkingItem } from '@/components/constants/trekking-item'
+import { packetItem, trekkingItem } from '@/components/constants/trekking-item'
 import TrekkingItemCard from '@/components/ui/trekking-item-card/trekking-item-card'
 import { Button, Input, NextUIProvider } from '@nextui-org/react'
 import Image from 'next/image'
@@ -131,12 +131,31 @@ export default function MountainDetail({ params }: props) {
           </div>
         </NextUIProvider>
       </div>
+      <div className="bg-[#3F6C29] flex justify-between items-center text-white px-4 sm:px-12 md:px-20 lg:px-24 xl:px-32 py-24">
+        <p className="text-3xl font-bold ">Kami juga menjual</p>
+        <NextUIProvider>
+          <div className="grid grid-cols-5 gap-6">
+            {packetItem.map((data, index) => (
+              <TrekkingItemCard
+                key={index}
+                name={data.name}
+                image={data.image}
+                price={data.price}
+                onClick={() => handleClick(data)}
+              />
+            ))}
+          </div>
+        </NextUIProvider>
+      </div>
       {click && (
         <div className="h-screen w-full fixed bg-black/50 top-0 left-0 transition-all duration-200 ease-in flex justify-center items-center">
           <div className="bg-white h-[500px] w-[750px] rounded-3xl z-50 flex">
             <div className="block w-full h-full p-12">
               <p className="text-center text-3xl font-bold">
                 Tambah ke Keranjang
+              </p>
+              <p className="text-center text-xl ">
+                Destinasi: {mountain?.name}
               </p>
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
@@ -149,8 +168,8 @@ export default function MountainDetail({ params }: props) {
                     />
                   )}
                   <div className="block">
-                    <p className='font-bold'>{clickedItem?.name}</p>
-                    <p>Rp{clickedItem?.price}</p>
+                    <p className="font-bold">{clickedItem?.name}</p>
+                    <p>Rp{clickedItem?.price}/hari</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
@@ -174,13 +193,13 @@ export default function MountainDetail({ params }: props) {
                   </Button>
                 </div>
               </div>
-              <div className='space-y-4 items-end pt-12'>
-                <div className='flex justify-center'>
+              <div className="space-y-4 items-end pt-12">
+                <div className="flex justify-center">
                   <Button className="bg-[#3F6C29] text-white font-bold w-full py-8">
                     Tambah
                   </Button>
                 </div>
-                <div className='flex justify-center'>
+                <div className="flex justify-center">
                   <Button
                     variant="flat"
                     className=" text-black font-bold w-full py-8"
