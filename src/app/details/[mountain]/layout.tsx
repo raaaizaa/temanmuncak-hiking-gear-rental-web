@@ -184,7 +184,7 @@ export default function MountainDetail({ params }: props) {
                       const inputValue = parseInt(e.target.value, 10) || 0
                       setCounter(Math.max(0, inputValue))
                     }}
-                    className="w-[32px] h-[32px] text-center"
+                    className="w-[32px] h-[32px] text-center bg-slate-100 rounded-lg"
                   />
                   <Button
                     className="bg-[#3F6C29] text-white"
