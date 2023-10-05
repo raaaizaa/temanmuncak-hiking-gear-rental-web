@@ -8,12 +8,12 @@ export default function Layout() {
     <div className="bg-white text-black px-4 sm:px-12 md:px-20 lg:px-24 xl:px-32">
       <div className="py-12">
         <p className="text-5xl font-bold text-center">Keranjang Anda</p>
-        <div className="block mx-64 py-6 ">
-          <p>Destinasi Gunung: </p>
+        <div className="block py-6 ">
+          <p className='w-1/4 text-center'>Destinasi Gunung: </p>
           <hr />
           <div className="flex font-bold text-start py-6">
             <div className="w-1/4 text-center">
-              <p>Nomor Barang</p>
+              <p>Nomor</p>
             </div>
             <div className="w-1/4 text-center">
               <p>Barang</p>

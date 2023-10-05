@@ -8,7 +8,5 @@ export default function Page() {
   useEffect(() => {
     router.push('/')
   }, [])
-  return (
-    <></>
-  )
+  return <div></div>
 }
