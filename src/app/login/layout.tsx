@@ -3,8 +3,21 @@ import Image from 'next/image'
 import React from 'react'
 import { Input, Button, NextUIProvider } from '@nextui-org/react'
 import Link from 'next/link'
+import { login } from '@/utils/login'
+import { useRouter } from 'next/router'
 
 export default function LoginPage() {
+  const handleLogin = () => {
+    const email = (document.getElementById('email') as HTMLInputElement)?.value
+    const password = (document.getElementById('password') as HTMLInputElement)
+      ?.value
+    
+    if(login(email, password) == true){
+      // useRouter().push('/')
+      console.log('yes bisa login yes')
+    }
+  }
+
   return (
     <div className="h-[100vh] w-full ">
       <div className="opacity-90 fill-black">
@@ -35,7 +48,7 @@ export default function LoginPage() {
                       </p>
                     </Link>
                   </div>
-                  <Button className="bg-[#3F6C29] text-white w-full py-8 font-bold">
+                  <Button className="bg-[#3F6C29] text-white w-full py-8 font-bold" onClick={handleLogin}>
                     Login
                   </Button>
                 </div>

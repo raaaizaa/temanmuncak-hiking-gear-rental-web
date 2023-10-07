@@ -95,47 +95,27 @@ export default function MountainDetail({ params }: props) {
             Paling Sering Dipinjam
           </p>
           <div className="flex justify-center items-center">
-            <NextUIProvider>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-16">
-                {trekkingItem
-                  .map((data, index) => (
-                    <TrekkingItemCard
-                      key={index}
-                      name={data.name}
-                      image={data.image}
-                      price={data.price}
-                      onClick={() => handleClick(data)}
-                    />
-                  ))
-                  .slice(0, 4)}
-              </div>
-            </NextUIProvider>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-16">
+              {trekkingItem
+                .map((data, index) => (
+                  <TrekkingItemCard
+                    key={index}
+                    name={data.name}
+                    image={data.image}
+                    price={data.price}
+                    onClick={() => handleClick(data)}
+                  />
+                ))
+                .slice(0, 4)}
+            </div>
           </div>
         </div>
       </div>
       <div className="bg-white text-black px-4 sm:px-12 md:px-20 lg:px-24 xl:px-32 py-24">
         <p className="text-3xl text-center pb-12">Barang Lainnya</p>
-        <NextUIProvider>
-          <div className="grid grid-cols-5 gap-16">
-            {trekkingItem
-              .map((data, index) => (
-                <TrekkingItemCard
-                  key={index}
-                  name={data.name}
-                  image={data.image}
-                  price={data.price}
-                  onClick={() => handleClick(data)}
-                />
-              ))
-              .slice(4, 16)}
-          </div>
-        </NextUIProvider>
-      </div>
-      <div className="bg-[#3F6C29] flex justify-between items-center text-white px-4 sm:px-12 md:px-20 lg:px-24 xl:px-32 py-24">
-        <p className="text-3xl font-bold ">Kami juga menjual</p>
-        <NextUIProvider>
-          <div className="grid grid-cols-5 gap-6">
-            {packetItem.map((data, index) => (
+        <div className="grid grid-cols-5 gap-16">
+          {trekkingItem
+            .map((data, index) => (
               <TrekkingItemCard
                 key={index}
                 name={data.name}
@@ -143,9 +123,23 @@ export default function MountainDetail({ params }: props) {
                 price={data.price}
                 onClick={() => handleClick(data)}
               />
-            ))}
-          </div>
-        </NextUIProvider>
+            ))
+            .slice(4, 16)}
+        </div>
+      </div>
+      <div className="bg-[#3F6C29] flex justify-between items-center text-white px-4 sm:px-12 md:px-20 lg:px-24 xl:px-32 py-24">
+        <p className="text-3xl font-bold ">Kami juga menjual</p>
+        <div className="grid grid-cols-5 gap-6">
+          {packetItem.map((data, index) => (
+            <TrekkingItemCard
+              key={index}
+              name={data.name}
+              image={data.image}
+              price={data.price}
+              onClick={() => handleClick(data)}
+            />
+          ))}
+        </div>
       </div>
       {click && (
         <div className="h-screen w-full fixed bg-black/50 top-0 left-0 transition-all duration-200 ease-in flex justify-center items-center">
