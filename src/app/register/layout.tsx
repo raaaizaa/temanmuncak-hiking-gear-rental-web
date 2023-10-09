@@ -3,8 +3,7 @@ import Image from 'next/image'
 import React, { useState } from 'react'
 import { Input, Button, NextUIProvider } from '@nextui-org/react'
 import Link from 'next/link'
-import { register } from '@/utils/register'
-import { useRouter } from 'next/router'
+import { register } from '@/utils/auth'
 
 export default function RegisterPage() {
   const [email, setEmail] = useState('')
@@ -23,8 +22,8 @@ export default function RegisterPage() {
     )?.value
 
     if (register(email, password, confirmPassword) == true) {
-      // useRouter().push('/login')
       console.log('yes bisa register yes')
+      window.location.replace('/')
     }
   }
 

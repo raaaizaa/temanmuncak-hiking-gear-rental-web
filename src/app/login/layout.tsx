@@ -1,20 +1,19 @@
 'use client'
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Input, Button, NextUIProvider } from '@nextui-org/react'
 import Link from 'next/link'
-import { login } from '@/utils/login'
-import { useRouter } from 'next/router'
+import { login } from '@/utils/auth'
 
 export default function LoginPage() {
   const handleLogin = () => {
     const email = (document.getElementById('email') as HTMLInputElement)?.value
     const password = (document.getElementById('password') as HTMLInputElement)
       ?.value
-    
-    if(login(email, password) == true){
-      // useRouter().push('/')
+
+    if (login(email, password) == true) {
       console.log('yes bisa login yes')
+      window.location.replace('/')
     }
   }
 
@@ -39,8 +38,18 @@ export default function LoginPage() {
               </p>
               <div className="py-4 md:py-6 lg:py-12 xl:py-12 px-4 md:px-12 lg:px-16 xl:px-16 space-y-8">
                 <div className="px-6 py-4 lg:py-12 lg:px-16 xl:py-12 xl:px-16 space-y-8">
-                  <Input variant="faded" type="email" label="Email" />
-                  <Input variant="faded" type="password" label="Password" />
+                  <Input
+                    variant="faded"
+                    type="email"
+                    label="Email"
+                    id="email"
+                  />
+                  <Input
+                    variant="faded"
+                    type="password"
+                    label="Password"
+                    id="password"
+                  />
                   <div>
                     <Link href="/register">
                       <p className="text-end hover:underline text-xs">
@@ -48,7 +57,9 @@ export default function LoginPage() {
                       </p>
                     </Link>
                   </div>
-                  <Button className="bg-[#3F6C29] text-white w-full py-8 font-bold" onClick={handleLogin}>
+                  <Button
+                    className="bg-[#3F6C29] text-white w-full py-8 font-bold"
+                    onClick={handleLogin}>
                     Login
                   </Button>
                 </div>
