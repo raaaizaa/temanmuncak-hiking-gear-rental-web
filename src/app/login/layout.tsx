@@ -1,20 +1,30 @@
 'use client'
 import Image from 'next/image'
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Input, Button, NextUIProvider } from '@nextui-org/react'
 import Link from 'next/link'
-import { login } from '@/utils/auth'
+import { Login } from '@/utils/auth'
+import { AuthContext } from '@/components/context/auth-context'
 
 export default function LoginPage() {
+  const isAuthenticated = useContext(AuthContext).isAuthenticated
+  const loggingIn = useContext(AuthContext).authLogin
+
   const handleLogin = () => {
     const email = (document.getElementById('email') as HTMLInputElement)?.value
     const password = (document.getElementById('password') as HTMLInputElement)
       ?.value
 
-    if (login(email, password) == true) {
+      
+    if (Login(email, password) == true) {
       console.log('yes bisa login yes')
+      loggingIn()
       window.location.replace('/')
     }
+  }
+
+  if (isAuthenticated) {
+    window.location.replace('/')
   }
 
   return (
@@ -53,7 +63,7 @@ export default function LoginPage() {
                   <div>
                     <Link href="/register">
                       <p className="text-end hover:underline text-xs">
-                        Don't have an account yet? Register Here
+                        Do not have an account yet? Register Here
                       </p>
                     </Link>
                   </div>

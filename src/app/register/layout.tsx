@@ -3,7 +3,7 @@ import Image from 'next/image'
 import React, { useState } from 'react'
 import { Input, Button, NextUIProvider } from '@nextui-org/react'
 import Link from 'next/link'
-import { register } from '@/utils/auth'
+import { Register } from '@/utils/auth'
 
 export default function RegisterPage() {
   const [email, setEmail] = useState('')
@@ -21,9 +21,9 @@ export default function RegisterPage() {
       document.getElementById('confirmPassword') as HTMLInputElement
     )?.value
 
-    if (register(email, password, confirmPassword) == true) {
+    if (Register(email, password, confirmPassword) == true) {
       console.log('yes bisa register yes')
-      window.location.replace('/')
+      window.location.replace('/login')
     }
   }
 

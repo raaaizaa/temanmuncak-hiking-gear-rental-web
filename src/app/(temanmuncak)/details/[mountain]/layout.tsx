@@ -28,7 +28,7 @@ function decodeName(name: string) {
   return decodeURIComponent(name)
 }
 
-function setMountain(mountainName: string) {
+function SetMountain(mountainName: string) {
   const [mountain, setMountain] = useState<MountainType | undefined>()
 
   useEffect(() => {
@@ -49,7 +49,7 @@ export default function MountainDetail({ params }: props) {
   const [click, setClick] = useState(false)
   const [clickedItem, setclickedItem] = useState<itemType | undefined>()
   const [counter, setCounter] = useState(0)
-  const mountain = setMountain(params.mountain)
+  const mountain = SetMountain(params.mountain)
 
   const handleClick = (item: itemType) => {
     setclickedItem(item)
