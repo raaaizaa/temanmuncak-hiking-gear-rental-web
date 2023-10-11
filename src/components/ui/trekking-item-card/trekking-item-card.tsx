@@ -12,7 +12,7 @@ interface props {
 export default function TrekkingItemCard({ name, price, image, onClick }: props) {
   return (
     <Card
-      className="w-[250px] h-[450px] hover:scale-110 ease-in-out duration-100">
+      className="w-[200px] h-[400px] hover:scale-110 ease-in-out duration-100">
       <Image src={image} alt={name} width={500} height={500}/>
       <CardBody className="bottom-0 absolute">
         <div className="pb-6">

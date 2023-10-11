@@ -111,34 +111,40 @@ export default function MountainDetail({ params }: props) {
           </div>
         </div>
       </div>
-      <div className="bg-white text-black px-4 sm:px-12 md:px-20 lg:px-24 xl:px-32 py-24">
-        <p className="text-3xl text-center pb-12">Barang Lainnya</p>
-        <div className="grid grid-cols-5 gap-16">
-          {trekkingItem
-            .map((data, index) => (
-              <TrekkingItemCard
-                key={index}
-                name={data.name}
-                image={data.image}
-                price={data.price}
-                onClick={() => handleClick(data)}
-              />
-            ))
-            .slice(4, 16)}
+      <div className="flex items-center justify-center bg-white text-black px-4 sm:px-12 md:px-20 lg:px-20 xl:px-28 py-24">
+        <div>
+          <p className="text-3xl text-center pb-12">Barang Lainnya</p>
+          <div className="grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-16">
+            {trekkingItem
+              .map((data, index) => (
+                <TrekkingItemCard
+                  key={index}
+                  name={data.name}
+                  image={data.image}
+                  price={data.price}
+                  onClick={() => handleClick(data)}
+                />
+              ))
+              .slice(4, 16)}
+          </div>
         </div>
       </div>
-      <div className="bg-[#3F6C29] flex justify-between items-center text-white px-4 sm:px-12 md:px-20 lg:px-24 xl:px-32 py-24">
-        <p className="text-3xl font-bold ">Kami juga menjual</p>
-        <div className="grid grid-cols-5 gap-6">
-          {packetItem.map((data, index) => (
-            <TrekkingItemCard
-              key={index}
-              name={data.name}
-              image={data.image}
-              price={data.price}
-              onClick={() => handleClick(data)}
-            />
-          ))}
+      <div className="flex justify-center items-center bg-[#3F6C29]">
+        <div className=" lg:flex lg:justify-between lg:items-center xl:flex xl:justify-between xl:items-center text-white px-4 sm:px-12 md:px-20 lg:px-20 xl:px-16 py-24 gap-x-8">
+          <p className="text-3xl font-bold text-center pb-8">Kami juga menjual</p>
+          <div className="flex justify-center items-center">
+          <div className="grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-16">
+              {packetItem.map((data, index) => (
+                <TrekkingItemCard
+                  key={index}
+                  name={data.name}
+                  image={data.image}
+                  price={data.price}
+                  onClick={() => handleClick(data)}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
       {click && (

@@ -15,8 +15,10 @@ export const AuthContext = createContext({
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [isAuthenticated, setAuthenticated] = useState(() => {
-    // Initialize state from localStorage or default to false
-    return localStorage.getItem('isAuthenticated') === 'true' || false;
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('isAuthenticated') === 'true' || false;
+    }
+    return false; // Default to false if window is undefined
   });
 
   const authLogin = () => {
@@ -28,8 +30,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   useEffect(() => {
-    // Check if localStorage is defined before using it
-    if (typeof localStorage !== 'undefined') {
+    if (typeof window !== 'undefined') {
       localStorage.setItem('isAuthenticated', String(isAuthenticated));
     }
   }, [isAuthenticated]);
