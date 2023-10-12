@@ -1,8 +1,11 @@
 'use client'
 import { mountainItem } from '@/components/constants/mountain-item'
 import { packetItem, trekkingItem } from '@/components/constants/trekking-item'
+import Confirmation from '@/components/templates/details/confirmation'
 import TrekkingItemCard from '@/components/ui/trekking-item-card/trekking-item-card'
-import { Button, Input, NextUIProvider } from '@nextui-org/react'
+import { itemType, partialItemType } from '@/types/item'
+import { AddItem } from '@/utils/add-item'
+import { Button } from '@nextui-org/react'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 
@@ -18,21 +21,18 @@ interface MountainType {
   image: string
 }
 
-interface itemType {
-  name: string
-  price: number
-  image: string
-}
-
 function decodeName(name: string) {
   return decodeURIComponent(name)
 }
 
-function SetMountain(mountainName: string) {
+export default function MountainDetail({ params }: props) {
+  const [click, setClick] = useState(false)
+  const [clickedItem, setclickedItem] = useState<partialItemType>()
+
   const [mountain, setMountain] = useState<MountainType | undefined>()
 
   useEffect(() => {
-    mountainName = decodeName(mountainName)
+    const mountainName = decodeName(params.mountain)
 
     if (mountainName) {
       const foundMountain = mountainItem.find(
@@ -40,21 +40,13 @@ function SetMountain(mountainName: string) {
       )
       setMountain(foundMountain)
     }
-  }, [mountainName])
+  }, [])
 
-  return mountain
-}
-
-export default function MountainDetail({ params }: props) {
-  const [click, setClick] = useState(false)
-  const [clickedItem, setclickedItem] = useState<itemType | undefined>()
-  const [counter, setCounter] = useState(0)
-  const mountain = SetMountain(params.mountain)
-
-  const handleClick = (item: itemType) => {
+  const handleItem = (item: partialItemType) => {
     setclickedItem(item)
     setClick(!click)
   }
+
 
   return (
     <div className="bg-white text-black ">
@@ -103,7 +95,8 @@ export default function MountainDetail({ params }: props) {
                     name={data.name}
                     image={data.image}
                     price={data.price}
-                    onClick={() => handleClick(data)}
+                    id={data.id}
+                    onClick={() => handleItem(data)}
                   />
                 ))
                 .slice(0, 4)}
@@ -119,10 +112,11 @@ export default function MountainDetail({ params }: props) {
               .map((data, index) => (
                 <TrekkingItemCard
                   key={index}
+                  id={data.id}
                   name={data.name}
                   image={data.image}
                   price={data.price}
-                  onClick={() => handleClick(data)}
+                  onClick={() => handleItem(data)}
                 />
               ))
               .slice(4, 16)}
@@ -131,16 +125,19 @@ export default function MountainDetail({ params }: props) {
       </div>
       <div className="flex justify-center items-center bg-[#3F6C29]">
         <div className=" lg:flex lg:justify-between lg:items-center xl:flex xl:justify-between xl:items-center text-white px-4 sm:px-12 md:px-20 lg:px-20 xl:px-16 py-24 gap-x-8">
-          <p className="text-3xl font-bold text-center pb-8">Kami juga menjual</p>
+          <p className="text-3xl font-bold text-center pb-8">
+            Kami juga menjual
+          </p>
           <div className="flex justify-center items-center">
-          <div className="grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-16">
+            <div className="grid md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-16">
               {packetItem.map((data, index) => (
                 <TrekkingItemCard
                   key={index}
+                  id={data.id}
                   name={data.name}
                   image={data.image}
                   price={data.price}
-                  onClick={() => handleClick(data)}
+                  onClick={() => handleItem(data)}
                 />
               ))}
             </div>
@@ -148,69 +145,15 @@ export default function MountainDetail({ params }: props) {
         </div>
       </div>
       {click && (
-        <div className="h-screen w-full fixed bg-black/50 top-0 left-0 transition-all duration-200 ease-in flex justify-center items-center">
-          <div className="bg-white h-[500px] w-[750px] rounded-3xl z-50 flex">
-            <div className="block w-full h-full p-12">
-              <p className="text-center text-3xl font-bold">
-                Tambah ke Keranjang
-              </p>
-              <p className="text-center text-xl ">
-                Destinasi: {mountain?.name}
-              </p>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-4">
-                  {clickedItem?.image && (
-                    <Image
-                      src={clickedItem?.image}
-                      alt={clickedItem?.name}
-                      width={150}
-                      height={150}
-                    />
-                  )}
-                  <div className="block">
-                    <p className="font-bold">{clickedItem?.name}</p>
-                    <p>Rp{clickedItem?.price}/hari</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4">
-                  <Button
-                    className="bg-[#3F6C29] text-white"
-                    onClick={() => setCounter(counter > 0 ? counter - 1 : 0)}>
-                    -
-                  </Button>
-                  <input
-                    value={counter}
-                    onChange={(e) => {
-                      const inputValue = parseInt(e.target.value, 10) || 0
-                      setCounter(Math.max(0, inputValue))
-                    }}
-                    className="w-[32px] h-[32px] text-center bg-slate-100 rounded-lg"
-                  />
-                  <Button
-                    className="bg-[#3F6C29] text-white"
-                    onClick={() => setCounter(counter + 1)}>
-                    +
-                  </Button>
-                </div>
-              </div>
-              <div className="space-y-4 items-end pt-12">
-                <div className="flex justify-center">
-                  <Button className="bg-[#3F6C29] text-white font-bold w-full py-8">
-                    Tambah
-                  </Button>
-                </div>
-                <div className="flex justify-center">
-                  <Button
-                    variant="flat"
-                    className=" text-black font-bold w-full py-8"
-                    onClick={() => setClick(false)}>
-                    Batal
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Confirmation
+        id = {clickedItem?.id || 0}
+          image={clickedItem?.image || ''}
+          item={clickedItem?.name || ''}
+          mountain={mountain?.name || ''}
+          price={clickedItem?.price || 0}
+          setClick={setClick}
+          
+        />
       )}
     </div>
   )
