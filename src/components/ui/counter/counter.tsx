@@ -1,16 +1,23 @@
-import React, { useState } from 'react';
-import { Button } from '@nextui-org/react';
+import React, { useState } from 'react'
+import { Button } from '@nextui-org/react'
 
-interface props{
-    id: string,
-    label: string,
-    value: number,
-    onDecrement: () => void
-    onIncrement: () => void
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+interface props {
+  ref: React.RefObject<HTMLInputElement>
+  label: string
+  value: number
+  onDecrement: () => void
+  onIncrement: () => void
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-export default function Counter({ id, label, value, onDecrement, onIncrement, onChange }: props){
+export default function Counter({
+  ref,
+  label,
+  value,
+  onDecrement,
+  onIncrement,
+  onChange,
+}: props) {
   return (
     <div className="flex items-center gap-4">
       <p>{label}:</p>
@@ -18,15 +25,14 @@ export default function Counter({ id, label, value, onDecrement, onIncrement, on
         -
       </Button>
       <input
+        ref={ref}
         value={value}
         onChange={onChange}
-        id={id}
         className="w-[32px] h-[32px] text-center bg-slate-100 rounded-lg"
       />
       <Button className="bg-[#3F6C29] text-white" onClick={onIncrement}>
         +
       </Button>
     </div>
-  );
-};
-
+  )
+}

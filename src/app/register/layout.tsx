@@ -6,23 +6,18 @@ import Link from 'next/link'
 import { Register } from '@/utils/auth'
 
 export default function RegisterPage() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
 
   const handleRegister = () => {
     const email = (document.getElementById('email') as HTMLInputElement)?.value
-    setEmail(email)
 
     const password = (document.getElementById('password') as HTMLInputElement)
       ?.value
-    setPassword(password)
 
     const confirmPassword = (
       document.getElementById('confirmPassword') as HTMLInputElement
     )?.value
 
     if (Register(email, password, confirmPassword) == true) {
-      console.log('yes bisa register yes')
       window.location.replace('/login')
     }
   }

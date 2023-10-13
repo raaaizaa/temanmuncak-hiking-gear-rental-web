@@ -38,7 +38,7 @@ export function Register(
     } else {
       alert('Password does not match!')
     }
-  }, [passwordIsSame, userExist])
+  }, [passwordIsSame, userExist, email, password])
 
   return registered
 }

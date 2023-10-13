@@ -15,7 +15,6 @@ export default function LoginPage() {
     const password = (document.getElementById('password') as HTMLInputElement)
       ?.value
 
-      
     if (Login(email, password) == true) {
       console.log('yes bisa login yes')
       loggingIn()

@@ -1,10 +1,10 @@
 'use client'
 import Counter from '@/components/ui/counter/counter'
-import { itemType, partialItemType } from '@/types/item'
+import { itemType } from '@/types/item'
 import { AddItem } from '@/utils/add-item'
 import { Button } from '@nextui-org/react'
 import Image from 'next/image'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 
 interface props {
   id: number
@@ -25,13 +25,12 @@ export default function Confirmation({
 }: props) {
   const [quantityCounter, setQuantityCounter] = useState(0)
   const [dayCounter, setDayCounter] = useState(0)
+  const quantityRef = useRef<HTMLInputElement>(null)
+  const daysRef = useRef<HTMLInputElement>(null)
 
   const handleClick = () => {
-    const quantity = (
-      document.getElementById('quantityField') as HTMLInputElement
-    )?.value
-    const days = (document.getElementById('daysField') as HTMLInputElement)
-      ?.value
+    const quantity = quantityRef.current?.value
+    const days = daysRef.current?.value
 
     const totalPrice =
       price *
@@ -49,10 +48,9 @@ export default function Confirmation({
     }
 
     console.log(selectedItem)
-
-    AddItem(selectedItem)
-
-    console.log('Added item to local storage:', selectedItem)
+    if (AddItem(selectedItem) == true) {
+      console.log('titit dari handleclick', selectedItem)
+    }
   }
 
   const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -85,7 +83,7 @@ export default function Confirmation({
           <div className="block">
             <div className="flex items-center justify-between">
               <Counter
-                id="quantityField"
+                ref={quantityRef}
                 label="Kuantitas"
                 value={quantityCounter}
                 onDecrement={() =>
@@ -97,7 +95,7 @@ export default function Confirmation({
                 onChange={handleQuantityChange}
               />
               <Counter
-                id="daysField"
+                ref={daysRef}
                 label="Total hari meminjam"
                 value={dayCounter}
                 onDecrement={() =>
@@ -113,7 +111,7 @@ export default function Confirmation({
               <Button
                 variant="flat"
                 className="bg-[#3F6C29] text-white font-bold w-full py-8"
-                onClick={() => handleClick()}>
+                onClick={handleClick}>
                 Tambah
               </Button>
             </div>

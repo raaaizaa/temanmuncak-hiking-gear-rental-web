@@ -1,53 +1,50 @@
-'use client'
-import { itemType } from '@/types/item'
-import { useEffect } from 'react'
+'use client';
+import { itemType } from '@/types/item';
 
-// if there's another mountain in the localstorage, it won't adding new mountain
-function checkMountain(mountain: string) {
-  const item = JSON.parse(localStorage.getItem('rentedItems') || '[]')
-  return item.some((item: itemType) => item.mountain === mountain)
+function checkMountain(items: itemType[], mountain: string) {
+  if (isCartEmpty(items)) {
+    return true; // Cart is available, any mountain can be added
+  }
+
+  return !items.some((item: itemType) => item.mountain === mountain);
 }
 
-function checkItem(id: number) {
-  const item = JSON.parse(localStorage.getItem('rentedItems') || '[]')
-  return item.some((item: itemType) => item.id === id)
+function isCartEmpty(items: itemType[]) {
+  return items.length === 0;
 }
 
-function calculatePrice(price: number, days: number, quantity: number) {
-  return price * days * quantity
+function checkItem(items: itemType[], id: number) {
+  return items.some((item: itemType) => item.id === id);
 }
 
-export function AddItem(item: itemType) {
-  useEffect(() => {
-    const items = JSON.parse(localStorage.getItem('rentedItems') || '[]') as itemType[]
-    const isMountainSame = checkMountain(item.mountain)
-    const isItemExist = checkItem(item.id)
-    
-    if (isMountainSame) {
-      // if there's item with the same id, the quantity, the days, and the price will be updated
-      if (isItemExist) {
-        const updatedItems = items.map((existingItem) => {
-          if(existingItem.id === item.id){
-            return{
-              ...existingItem,
-              quantity: item.quantity,
-              days: item.days,
-              price: calculatePrice(item.price, item.days, item.quantity)
-            }
-          }
+export function AddItem(newItem: itemType) {
+  const items = JSON.parse(localStorage.getItem('rentedItems') || '[]') as itemType[];
+  const cartIsEmpty = isCartEmpty(items);
+  const mountainAvailable = checkMountain(items, newItem.mountain);
+  const itemAvailable = checkItem(items, newItem.id);
+  console.log('items before added: ', items);
 
-          return existingItem
-        })
-
-        localStorage.setItem('rentedItems', JSON.stringify(updatedItems))
-      }else{
-        const updatedItems = [...items, item]
-        localStorage.setItem('rentedItems', JSON.stringify(updatedItems))
+  if (cartIsEmpty || (mountainAvailable && !itemAvailable)) {
+    const updatedItems = [...items, newItem];
+    localStorage.setItem('rentedItems', JSON.stringify(updatedItems));
+    console.log('items after added: ', updatedItems);
+    return true;
+  } else if (!cartIsEmpty && mountainAvailable && itemAvailable) {
+    const updatedItems = items.map((existingItem) => {
+      if (existingItem.id === newItem.id) {
+        return {
+          ...existingItem,
+          quantity: newItem.quantity,
+          days: newItem.days,
+          price: newItem.price,
+        };
       }
-    }else{
-      const updatedItems = [...items, item]
-      localStorage.setItem('rentedItems', JSON.stringify(updatedItems))
-    }
-  }, [])
-
+      return existingItem;
+    });
+    localStorage.setItem('rentedItems', JSON.stringify(updatedItems));
+    console.log('items after added: ', updatedItems);
+    return true;
+  } else {
+    return false;
+  }
 }

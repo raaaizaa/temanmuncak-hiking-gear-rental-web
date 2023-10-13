@@ -3,9 +3,7 @@ import { mountainItem } from '@/components/constants/mountain-item'
 import { packetItem, trekkingItem } from '@/components/constants/trekking-item'
 import Confirmation from '@/components/templates/details/confirmation'
 import TrekkingItemCard from '@/components/ui/trekking-item-card/trekking-item-card'
-import { itemType, partialItemType } from '@/types/item'
-import { AddItem } from '@/utils/add-item'
-import { Button } from '@nextui-org/react'
+import { partialItemType } from '@/types/item'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 
@@ -46,7 +44,6 @@ export default function MountainDetail({ params }: props) {
     setclickedItem(item)
     setClick(!click)
   }
-
 
   return (
     <div className="bg-white text-black ">
@@ -146,13 +143,12 @@ export default function MountainDetail({ params }: props) {
       </div>
       {click && (
         <Confirmation
-        id = {clickedItem?.id || 0}
+          id={clickedItem?.id || 0}
           image={clickedItem?.image || ''}
           item={clickedItem?.name || ''}
           mountain={mountain?.name || ''}
           price={clickedItem?.price || 0}
           setClick={setClick}
-          
         />
       )}
     </div>
