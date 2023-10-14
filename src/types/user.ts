@@ -1,4 +1,4 @@
 export type userType = {
-    email: string,
-    password: string
+    email: string | undefined,
+    password: string | undefined
 }

@@ -40,7 +40,7 @@ export default function Confirmation({
       (quantity ? parseInt(quantity, 10) : 0)
 
     const selectedItem: itemType = {
-      id: id,
+    id: id,
       type: type,
       name: item,
       mountain: mountain,

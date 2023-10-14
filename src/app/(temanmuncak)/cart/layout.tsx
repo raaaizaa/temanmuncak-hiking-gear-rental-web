@@ -6,11 +6,15 @@ import React, { useEffect, useState } from 'react'
 
 export default function Layout() {
   const [cartItems, setCartItems] = useState<itemType[]>([]);
+  const [mountain, setMountain] = useState('')
 
   useEffect(() => {
     const storedItems = JSON.parse(localStorage.getItem('rentedItems') || '[]')
+    const mountainName = storedItems.map((item:itemType) => item.mountain)
+    console.log(mountainName)
     console.log(storedItems)
     setCartItems(storedItems)
+    setMountain(mountainName)
   }, [])
 
 
@@ -19,7 +23,7 @@ export default function Layout() {
       <div className="py-12">
         <p className="text-5xl font-bold text-center">Keranjang Anda</p>
         <div className="block py-6 ">
-          <p className="w-1/4 text-center">Destinasi Gunung: </p>
+          <p className="w-1/4 text-center">Destinasi Gunung: {mountain[0]}</p>
           <hr />
           <div className="flex font-bold text-start py-6">
             <div className="w-1/4 text-center">

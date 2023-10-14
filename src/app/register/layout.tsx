@@ -1,75 +1,105 @@
 'use client'
 import Image from 'next/image'
-import React, { useState } from 'react'
-import { Input, Button, NextUIProvider } from '@nextui-org/react'
-import Link from 'next/link'
+import React, { useRef, useState } from 'react'
+import { Input, Button } from '@nextui-org/react'
 import { Register } from '@/utils/auth'
+import Link from 'next/link'
 
 export default function RegisterPage() {
+  const [error, setError] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
+  const emailRef = useRef<HTMLInputElement | null>(null)
+  const passwordRef = useRef<HTMLInputElement | null>(null)
+  const confirmRef = useRef<HTMLInputElement | null>(null)
+
+  function validateEmail(email: string | undefined) {
+    if (email) {
+      return email.match(
+        /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+.)+[a-zA-Z]{2,}))$/
+      )
+    }
+    return false
+  }
 
   const handleRegister = () => {
-    const email = (document.getElementById('email') as HTMLInputElement)?.value
+    const email = emailRef.current?.value
+    const password = passwordRef.current?.value
+    const confirmPassword = confirmRef.current?.value
+    localStorage.removeItem('users')
 
-    const password = (document.getElementById('password') as HTMLInputElement)
-      ?.value
-
-    const confirmPassword = (
-      document.getElementById('confirmPassword') as HTMLInputElement
-    )?.value
-
-    if (Register(email, password, confirmPassword) == true) {
-      window.location.replace('/login')
+    if (email === '' || password === '' || confirmPassword === '') {
+      setError(true)
+      setErrorMessage('All fields must be filled!')
+    } else if (!validateEmail(email)) {
+      setError(true)
+      setErrorMessage('Email is not valid!')
+    } else if (password !== confirmPassword) {
+      setError(true)
+      setErrorMessage('Password does not match!')
+    } else {
+      if (Register(email, password) === true) {
+        window.location.replace('/login')
+      }else{
+        
+      }
     }
   }
 
   return (
-    <div className="h-[100vh] w-full ">
-      <div className="opacity-90 fill-black">
-        <Image
-          src="/homepage/bromo.jpg"
-          alt="bromo"
-          layout="fill"
-          objectFit="cover"
-          objectPosition="center"
-          quality={100}
-        />
-      </div>
-      <div className="absolute w-full h-full flex justify-center items-center">
-        <div className="block text-black bg-white w-fit lg:w-[650px] xl:w-[650px] rounded-3xl">
-          <NextUIProvider>
-            <div className="py-12 px-2">
-              <p className="text-center font-bold text-3xl lg:text-4xl xl:text-4xl">
-                Register
-              </p>
-              <div className="py-4 md:py-6 lg:py-12 xl:py-12 px-8 md:px-12 lg:px-16 xl:px-16 space-y-8">
-                <Input variant="faded" type="email" label="Email" id="email" />
-                <Input
-                  variant="faded"
-                  type="password"
-                  label="Password"
-                  id="password"
-                />
-                <Input
-                  variant="faded"
-                  type="password"
-                  label="Confirm Password"
-                  id="confirmPassword"
-                />
-                <div>
-                  <Link href="/login">
-                    <p className="text-end hover:underline text-xs">
-                      Already have an account? Login Here
-                    </p>
-                  </Link>
-                </div>
-                <Button
-                  className="bg-[#3F6C29] text-white w-full py-8 font-bold"
-                  onClick={handleRegister}>
-                  Register
-                </Button>
-              </div>
-            </div>
-          </NextUIProvider>
+    <div className="flex items-center justify-center h-screen w-screen bg-[#3F6C29]">
+      <div className="space-y-8 w-[300px]">
+        <div>
+          <div className="flex justify-center items-center">
+            <Image
+              src="/logo/temanmuncak.png"
+              alt="temanmuncak"
+              width={256}
+              height={256}
+            />
+          </div>
+          <p className="text-center font-light text-white">Register</p>
+        </div>
+        <div className="text-sm">
+          <Input
+            ref={emailRef}
+            variant="underlined"
+            classNames={{ label: 'text-white' }}
+            type="email"
+            label="Email"
+            isInvalid={error}
+            errorMessage={errorMessage}
+          />
+          <Input
+            ref={passwordRef}
+            variant="underlined"
+            classNames={{ label: 'text-white' }}
+            type="password"
+            label="Password"
+            isInvalid={error}
+            errorMessage={errorMessage}
+          />
+          <Input
+            ref={confirmRef}
+            label="Confirm Password"
+            variant="underlined"
+            classNames={{ label: 'text-white' }}
+            type="password"
+            isInvalid={error}
+            errorMessage={errorMessage}
+          />
+        </div>
+        <div className="flex justify-end">
+          <Link href="/login">
+            <p className="text-sm hover:underline">Already have an account?</p>
+          </Link>
+        </div>
+        <div className="flex justify-center items-center">
+          <Button
+            variant="bordered"
+            className="hover:bg-white hover:text-[#3F6C29] bg-[#3F6C29] text-white w-fullfont-bold w-full"
+            onClick={handleRegister}>
+            Register
+          </Button>
         </div>
       </div>
     </div>
