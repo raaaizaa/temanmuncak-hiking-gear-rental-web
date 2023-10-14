@@ -93,6 +93,7 @@ export default function MountainDetail({ params }: props) {
                     image={data.image}
                     price={data.price}
                     id={data.id}
+                    type={data.type}
                     onClick={() => handleItem(data)}
                   />
                 ))
@@ -110,6 +111,7 @@ export default function MountainDetail({ params }: props) {
                 <TrekkingItemCard
                   key={index}
                   id={data.id}
+                  type={data.type}
                   name={data.name}
                   image={data.image}
                   price={data.price}
@@ -131,6 +133,7 @@ export default function MountainDetail({ params }: props) {
                 <TrekkingItemCard
                   key={index}
                   id={data.id}
+                  type={data.type}
                   name={data.name}
                   image={data.image}
                   price={data.price}
@@ -148,6 +151,7 @@ export default function MountainDetail({ params }: props) {
           item={clickedItem?.name || ''}
           mountain={mountain?.name || ''}
           price={clickedItem?.price || 0}
+          type={clickedItem?.type || ''}
           setClick={setClick}
         />
       )}

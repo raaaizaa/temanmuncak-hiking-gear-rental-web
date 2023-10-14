@@ -8,6 +8,7 @@ import React, { useEffect, useState, useRef } from 'react'
 
 interface props {
   id: number
+  type: string
   item: string
   mountain: string
   image: string
@@ -17,6 +18,7 @@ interface props {
 
 export default function Confirmation({
   id,
+  type,
   item,
   mountain,
   image,
@@ -39,6 +41,7 @@ export default function Confirmation({
 
     const selectedItem: itemType = {
       id: id,
+      type: type,
       name: item,
       mountain: mountain,
       image: image,
@@ -46,7 +49,6 @@ export default function Confirmation({
       days: days ? parseInt(days, 10) : 0,
       price: totalPrice,
     }
-
     console.log(selectedItem)
     if (AddItem(selectedItem) == true) {
       console.log('titit dari handleclick', selectedItem)
@@ -83,7 +85,7 @@ export default function Confirmation({
           <div className="block">
             <div className="flex items-center justify-between">
               <Counter
-                ref={quantityRef}
+                reference={quantityRef}
                 label="Kuantitas"
                 value={quantityCounter}
                 onDecrement={() =>
@@ -95,7 +97,7 @@ export default function Confirmation({
                 onChange={handleQuantityChange}
               />
               <Counter
-                ref={daysRef}
+                reference={daysRef}
                 label="Total hari meminjam"
                 value={dayCounter}
                 onDecrement={() =>

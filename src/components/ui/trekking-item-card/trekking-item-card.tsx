@@ -8,6 +8,7 @@ interface props {
   name: string
   price: number
   image: string
+  type: string
   onClick: (item: partialItemType) => void;
 }
 
@@ -16,6 +17,7 @@ export default function TrekkingItemCard({
   name,
   price,
   image,
+  type,
   onClick,
 }: props) {
   return (
@@ -30,7 +32,7 @@ export default function TrekkingItemCard({
           <Button
             variant="solid"
             className="bg-[#3F6C29] text-white w-full"
-            onClick={() => onClick({ id, name, price, image })}
+            onClick={() => onClick({ id, name, price, image, type })}
             >
             Tambah ke keranjang
           </Button>

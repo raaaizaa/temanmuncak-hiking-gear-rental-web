@@ -1,15 +1,25 @@
 'use client'
 import { trekkingItem } from '@/components/constants/trekking-item'
 import CartCard from '@/components/ui/cart-card/cart-card'
-import React from 'react'
+import { itemType } from '@/types/item';
+import React, { useEffect, useState } from 'react'
 
 export default function Layout() {
+  const [cartItems, setCartItems] = useState<itemType[]>([]);
+
+  useEffect(() => {
+    const storedItems = JSON.parse(localStorage.getItem('rentedItems') || '[]')
+    console.log(storedItems)
+    setCartItems(storedItems)
+  }, [])
+
+
   return (
     <div className="bg-white text-black px-4 sm:px-12 md:px-20 lg:px-24 xl:px-32">
       <div className="py-12">
         <p className="text-5xl font-bold text-center">Keranjang Anda</p>
         <div className="block py-6 ">
-          <p className='w-1/4 text-center'>Destinasi Gunung: </p>
+          <p className="w-1/4 text-center">Destinasi Gunung: </p>
           <hr />
           <div className="flex font-bold text-start py-6">
             <div className="w-1/4 text-center">
@@ -25,15 +35,16 @@ export default function Layout() {
               <p>Total Harga</p>
             </div>
           </div>
-            <hr />
-          {trekkingItem.map((data, index) => (
+          <hr />
+          {cartItems.map((item, index) => (
             <CartCard
-              index={index}
               key={index}
-              name={data.name}
-              image={data.image}
-              price={data.price}
-              quantity={0}
+              index={index + 1}
+              name={item.name}
+              image={item.image}
+              price={item.price}
+              day={item.days}
+              quantity={item.quantity}
             />
           ))}
         </div>

@@ -6,7 +6,7 @@ function checkMountain(items: itemType[], mountain: string) {
     return true; // Cart is available, any mountain can be added
   }
 
-  return !items.some((item: itemType) => item.mountain === mountain);
+  return items.some((item: itemType) => item.mountain === mountain);
 }
 
 function isCartEmpty(items: itemType[]) {

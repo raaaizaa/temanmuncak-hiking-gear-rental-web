@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Button } from '@nextui-org/react'
 
 interface props {
-  ref: React.RefObject<HTMLInputElement>
+  reference: React.RefObject<HTMLInputElement>
   label: string
   value: number
   onDecrement: () => void
@@ -11,13 +11,14 @@ interface props {
 }
 
 export default function Counter({
-  ref,
+  reference,
   label,
   value,
   onDecrement,
   onIncrement,
   onChange,
 }: props) {
+
   return (
     <div className="flex items-center gap-4">
       <p>{label}:</p>
@@ -25,7 +26,7 @@ export default function Counter({
         -
       </Button>
       <input
-        ref={ref}
+        ref={reference}
         value={value}
         onChange={onChange}
         className="w-[32px] h-[32px] text-center bg-slate-100 rounded-lg"

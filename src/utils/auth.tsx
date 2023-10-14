@@ -20,43 +20,35 @@ export function Register(
 ) {
   const passwordIsSame = checkPassword(password, confirmPassword)
   const userExist = checkUser(email, password)
-  const [registered, setRegistered] = useState(false)
 
-  useEffect(() => {
-    if (passwordIsSame) {
-      if (!userExist) {
-        const newUser: userType = { email, password }
-        const users = JSON.parse(localStorage.getItem('users') || '[]')
+  if (passwordIsSame) {
+    if (!userExist) {
+      const newUser: userType = { email, password }
+      const users = JSON.parse(localStorage.getItem('users') || '[]')
 
-        users.push(newUser)
-        localStorage.setItem('users', JSON.stringify(users))
-        setRegistered(true)
-        alert('Registration Successful!')
-      } else {
-        alert('User already exists!')
-      }
+      users.push(newUser)
+      localStorage.setItem('users', JSON.stringify(users))
+      alert('Registration Successful!')
+      return true
     } else {
-      alert('Password does not match!')
+      alert('User already exists!')
+      return false
     }
-  }, [passwordIsSame, userExist, email, password])
-
-  return registered
+  } else {
+    alert('Password does not match!')
+    return false
+  }
 }
 
 export function Login(email: string, password: string) {
-  const [loggedIn, setLoggedIn] = useState(false)
+  const users = JSON.parse(localStorage.getItem('users') || '[]')
+  const foundUser = users.find((user: userType) => user.email === email)
 
-  useEffect(() => {
-    const users = JSON.parse(localStorage.getItem('users') || '[]')
-    const foundUser = users.find((user: userType) => user.email === email)
-
-    if (foundUser && foundUser.password === password) {
-      alert('Success!')
-      setLoggedIn(true)
-    } else {
-      alert('Invalid!')
-    }
-  }, [email, password])
-
-  return loggedIn
+  if (foundUser && foundUser.password === password) {
+    alert('Success!')
+    return true
+  } else {
+    alert('Invalid!')
+    return false
+  }
 }

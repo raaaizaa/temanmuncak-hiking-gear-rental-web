@@ -8,6 +8,7 @@ interface props {
   price: number
   image: string
   quantity: number
+  day: number
 }
 
 export default function CartCard({
@@ -16,17 +17,27 @@ export default function CartCard({
   price,
   image,
   quantity,
+  day,
 }: props) {
   return (
     <div className="block">
       <div className="flex items-center">
-        <p className='w-1/4 text-small lg:text-base xl:text-base text-center items-center'>{index}</p>
-        <div className='flex w-1/4 text-small lg:text-base xl:text-base text-center items-center'>
+        <p className="w-1/4 text-small lg:text-base xl:text-base text-center items-center">
+          {index}
+        </p>
+        <div className="flex w-1/4 text-small lg:text-base xl:text-base text-center items-center">
           <Image src={image} alt={name} width={75} height={75} />
           <p>{name}</p>
         </div>
-        <p className='w-1/4 text-small lg:text-base xl:text-base text-center items-center'>{quantity}</p>
-        <p className='w-1/4 text-small lg:text-base xl:text-base text-center items-center'>{price}</p>
+        <p className="w-1/4 text-small lg:text-base xl:text-base text-center items-center">
+          {quantity}
+        </p>
+        <p className="w-1/4 text-small lg:text-base xl:text-base text-center items-center">
+          {day}
+        </p>
+        <p className="w-1/4 text-small lg:text-base xl:text-base text-center items-center">
+          {price}
+        </p>
       </div>
       <hr />
     </div>
