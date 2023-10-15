@@ -6,7 +6,7 @@ import { NextUIProvider } from '@nextui-org/react'
 
 export default function MountainGrid() {
   return (
-    <div className="w-full  bg-white py-24">
+    <div className="w-full  bg-white py-24" id='mountain-list'>
       <div className="flex justify-center items-center text-center px-4 lg:px-0 xl:px-0 pb-12">
         <p className="text-xl lg:text-2xl xl:text-3xl">
           Kami menyediakan layanan peminjaman pada gunung berikut:

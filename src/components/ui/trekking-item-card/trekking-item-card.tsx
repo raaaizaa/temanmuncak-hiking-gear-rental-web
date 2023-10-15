@@ -20,13 +20,14 @@ export default function TrekkingItemCard({
   type,
   onClick,
 }: props) {
+  const priceRupiah = Intl.NumberFormat().format(price)
   return (
     <Card className="w-[200px] h-[400px] hover:scale-110 ease-in-out duration-100">
       <Image src={image} alt={name} width={500} height={500} />
       <CardBody className="bottom-0 absolute">
         <div className="pb-6">
           <p className="font-bold text-xl">{name}</p>
-          <p>Rp{price}/hari</p>
+          <p>Rp{priceRupiah}/hari</p>
         </div>
         <div className="flex">
           <Button

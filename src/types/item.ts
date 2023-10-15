@@ -5,7 +5,7 @@ export type itemType = {
     mountain: string,
     image: string,
     quantity: number,
-    days: number
+    days: number | null,
     price: number
 }
 
