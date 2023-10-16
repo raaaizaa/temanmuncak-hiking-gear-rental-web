@@ -1,45 +1,15 @@
 import React from 'react'
-import {
-  Button,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
-} from '@nextui-org/react'
-
 interface CustomDropdownProps {
-  selectedValue: string
-  selectedKeys: Set<string>
-  onSelectionChange: (keys: Set<string>) => void
   items: string[]
 }
-
-export default function CustomDropdown({
-  selectedValue,
-  selectedKeys,
-  onSelectionChange,
-  items,
-}: CustomDropdownProps) {
+export default function CustomDropdown({ items }: CustomDropdownProps) {
   return (
-    <Dropdown className="w-full">
-      <DropdownTrigger>
-        <Button variant="flat" className="w-full">
-          {selectedValue}
-        </Button>
-      </DropdownTrigger>
-      <DropdownMenu
-        className="w-full"
-        variant="flat"
-        disallowEmptySelection
-        selectionMode="single"
-        selectedKeys={selectedKeys}
-        onSelectionChange={onSelectionChange}>
-        {items.map((item) => (
-          <DropdownItem className="w-full text-black" key={item}>
-            {item}
-          </DropdownItem>
-        ))}
-      </DropdownMenu>
-    </Dropdown>
+    <select className='hover:scale-105 duration-75 ease-in-out w-full bg-slate-200 rounded-md py-1 '>
+      {items.map((data, index) => (
+        <option value={data} key={index}>
+          {data}
+        </option>
+      ))}
+    </select>
   )
 }
