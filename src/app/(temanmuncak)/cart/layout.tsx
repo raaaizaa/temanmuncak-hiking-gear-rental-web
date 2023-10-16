@@ -1,5 +1,6 @@
 'use client'
 import CartIsEmpty from '@/components/templates/cart/cart-is-empty'
+import CheckoutConfirmation from '@/components/templates/cart/checkout-confirmation'
 import CartCard from '@/components/ui/cart-card/cart-card'
 import { itemType } from '@/types/item'
 import { Button } from '@nextui-org/react'
@@ -27,7 +28,7 @@ export default function Layout() {
   }
 
   const handleCheckout = () => {
-    setCheckout(true)
+    setCheckout(!checkout)
   }
 
   useEffect(() => {
@@ -77,15 +78,21 @@ export default function Layout() {
             ))}
             <div className="flex justify-end">
               <div className='py-4 space-y-4'>
-                <p>Total Harga: Rp{totalPriceRupiah}</p>
+                <p>Total Harga: <span className='font-bold'>Rp{totalPriceRupiah}</span></p>
                 <Button
-                  className="bg-[#3F6C29] text-white font-bold w-full"
+                  className="bg-[#3F6C29] hover:scale-105 text-white font-bold w-full"
                   onClick={handleCheckout}>
                   Checkout
                 </Button>
               </div>
             </div>
           </div>
+          {checkout && (
+            <CheckoutConfirmation 
+            destination={mountain[0]}
+            totalPrice={totalPriceRupiah}
+            onClick={handleCheckout}/>
+          )}
         </div>
       )}
       {empty && <CartIsEmpty />}
