@@ -2,8 +2,11 @@
 import { mountainItem } from '@/components/constants/mountain-item'
 import { packetItem, trekkingItem } from '@/components/constants/trekking-item'
 import Confirmation from '@/components/templates/details/confirmation'
+import TourGuideConfirmation from '@/components/templates/details/tourguide-confirmation'
+import TourGuideCard from '@/components/ui/tour-guide-card/tour-guide-card'
 import TrekkingItemCard from '@/components/ui/trekking-item-card/trekking-item-card'
 import { partialItemType } from '@/types/item'
+import { AddTourGuide } from '@/utils/add-item'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 
@@ -26,23 +29,34 @@ function decodeName(name: string) {
 export default function MountainDetail({ params }: props) {
   const [click, setClick] = useState(false)
   const [clickedItem, setclickedItem] = useState<partialItemType>()
-
+  const [tourGuideConfirmation, setTourGuideConfirmation] = useState(false)
   const [mountain, setMountain] = useState<MountainType | undefined>()
+  const mountainName = decodeName(params.mountain)
 
   useEffect(() => {
-    const mountainName = decodeName(params.mountain)
-
     if (mountainName) {
       const foundMountain = mountainItem.find(
         (item) => item.name === String(mountainName)
       )
       setMountain(foundMountain)
     }
-  }, [])
+  }, [mountainName])
 
   const handleItem = (item: partialItemType) => {
     setclickedItem(item)
     setClick(!click)
+  }
+
+  const handleTourGuide = () => {
+    setTourGuideConfirmation(!tourGuideConfirmation)
+  }
+
+  const addTourGuide = () => {
+    if (AddTourGuide(mountainName)) {
+      alert('Success added tour guide!')
+    } else {
+      alert('Error adding tour guide!')
+    }
   }
 
   return (
@@ -102,6 +116,14 @@ export default function MountainDetail({ params }: props) {
           </div>
         </div>
       </div>
+      <div className="flex items-center justify-center space-x-16 bg-slate-100 w-full h-fit text-black px-4 sm:px-12 md:px-20 lg:px-20 xl:px-28 py-24">
+        <p className="text-3xl">
+          Butuh tour guide untuk memandu perjalanan anda?
+        </p>
+        <div className="flex justify-center items-center">
+          <TourGuideCard onClick={handleTourGuide} />
+        </div>
+      </div>
       <div className="flex items-center justify-center bg-white text-black px-4 sm:px-12 md:px-20 lg:px-20 xl:px-28 py-24">
         <div>
           <p className="text-3xl text-center pb-12">Barang Lainnya</p>
@@ -153,6 +175,12 @@ export default function MountainDetail({ params }: props) {
           price={clickedItem?.price || 0}
           type={clickedItem?.type || ''}
           setClick={setClick}
+        />
+      )}
+      {tourGuideConfirmation && (
+        <TourGuideConfirmation
+          onClick={addTourGuide}
+          onClose={handleTourGuide}
         />
       )}
     </div>

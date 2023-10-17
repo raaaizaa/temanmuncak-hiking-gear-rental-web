@@ -136,7 +136,7 @@ export default function Confirmation({
             </div>
 
             <div className="space-y-4 items-end pt-12">
-              <div className=''>
+              <div className="">
                 <p className="text-red-600">{error ? errorMessage : ``}</p>
               </div>
               <div className="flex justify-center">
@@ -149,7 +149,7 @@ export default function Confirmation({
               </div>
               <div className="flex justify-center">
                 <Button
-                  variant="flat"
+                        variant="bordered"
                   className=" text-black font-bold w-full py-8"
                   onClick={() => setClick(false)}>
                   Batal
