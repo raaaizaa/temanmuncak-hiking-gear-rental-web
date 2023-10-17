@@ -66,7 +66,7 @@ export default function CheckoutConfirmation({
                     today: 'my-today',
                   }}
                   classNames={{
-                    day: 'p-0 lg:p-4 xl:p-4 hover:scale-150 duration-75 ease-in',
+                    day: 'p-0 lg:p-4 xl:p-4 ',
                     caption:
                       'flex space-x-8 lg:justify-between xl:justify-between items-center p-0 lg:p-4 xl:p-4',
                   }}

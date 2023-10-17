@@ -85,14 +85,16 @@ export default function Confirmation({
   }
 
   return (
-    <div className="h-screen w-full fixed bg-black/50 top-0 left-0 transition-all duration-200 ease-in flex justify-center items-center">
+    <div className="h-screen w-full fixed bg-black/50 top-0 z-50 left-0 transition-all duration-200 ease-in flex justify-center items-center">
       {!success && (
-        <div className="bg-white h-fit w-[750px] rounded-3xl z-50 flex">
-          <div className="block w-full h-full px-12 py-8">
-            <p className="text-center text-3xl font-bold">
+        <div className="bg-white h-fit w-fit lg:w-[750px] xl:w-[750px] rounded-3xl z-50 flex">
+          <div className="block w-full h-full px-8 lg:px-12 xl:px-12 py-4 lg:py-8 xl:py-8">
+            <p className="text-center text-xl lg:text-2xl xl:text-3xl font-bold">
               Tambah ke Keranjang
             </p>
-            <p className="text-center text-xl ">Destinasi: {mountain}</p>
+            <p className="text-center text-base lg:text-base xl:text-xl ">
+              Destinasi: {mountain}
+            </p>
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
                 {image && (
@@ -105,7 +107,7 @@ export default function Confirmation({
               </div>
             </div>
             <div className="block">
-              <div className="flex items-center justify-between">
+              <div className="block lg:flex xl:flex w-full items-center pt-8 justify-between">
                 <Counter
                   reference={quantityRef}
                   label="Kuantitas"
@@ -118,10 +120,10 @@ export default function Confirmation({
                   onIncrement={() => setQuantityCounter(quantityCounter + 1)}
                   onChange={handleQuantityChange}
                 />
-                {type !== 'sale' && ( // Conditionally render Counter for days
+                {type !== 'sale' && (
                   <Counter
                     reference={daysRef}
-                    label="Jumlah hari"
+                    label="Hari"
                     value={dayCounter}
                     onDecrement={() =>
                       setDayCounter(dayCounter > 0 ? dayCounter - 1 : 0)
@@ -134,7 +136,7 @@ export default function Confirmation({
             </div>
 
             <div className="space-y-4 items-end pt-12">
-              <div>
+              <div className=''>
                 <p className="text-red-600">{error ? errorMessage : ``}</p>
               </div>
               <div className="flex justify-center">
