@@ -13,7 +13,7 @@ interface props {
   handleClick: ()=> void
 }
 
-export default function CartCard({
+export default function ItemCartCard({
   index,
   name,
   price,

@@ -1,13 +1,15 @@
 'use client'
 import CartIsEmpty from '@/components/templates/cart/cart-is-empty'
 import CheckoutConfirmation from '@/components/templates/cart/checkout-confirmation'
-import CartCard from '@/components/ui/cart-card/cart-card'
+import ItemCartCard from '@/components/ui/cart-card/item-cart-card'
+import TourGuideCartCard from '@/components/ui/cart-card/tourguide-cart-card'
 import { itemType } from '@/types/item'
 import { Button } from '@nextui-org/react'
 import React, { useEffect, useState } from 'react'
 
 export default function Layout() {
   const [cartItems, setCartItems] = useState<itemType[]>([])
+  const [tourGuide, setTourGuide] = useState(false)
   const [empty, setEmpty] = useState(false)
   const [mountain, setMountain] = useState('')
   const [totalPrice, setTotalPrice] = useState<number>(0)
@@ -27,12 +29,22 @@ export default function Layout() {
     setTotalPrice(calculatedTotalPrice)
   }
 
+  const handleRemoveTourGuide = () => {
+    localStorage.removeItem('tourGuide')
+    setTourGuide(false)
+  }
+
   const handleCheckout = () => {
     setCheckout(!checkout)
   }
 
   useEffect(() => {
     const storedItems = JSON.parse(localStorage.getItem('rentedItems') || '[]')
+    const tourGuideItems = JSON.parse(localStorage.getItem('tourGuide') || '[]')
+
+    if(tourGuideItems.length === 1){
+      setTourGuide(true)
+    }
 
     if (storedItems.length === 0) {
       setEmpty(true)
@@ -64,7 +76,7 @@ export default function Layout() {
             <hr className="mb-4" />
             {cartItems.map((item, index) => (
               <div key={index}>
-                <CartCard
+                <ItemCartCard
                   index={index + 1}
                   name={item.name}
                   image={item.image}
@@ -76,6 +88,12 @@ export default function Layout() {
                 <hr />
               </div>
             ))}
+            {tourGuide && (
+              <div>
+                <p className='text-xl'>Pemandu perjalanan anda, </p>
+                <TourGuideCartCard onClick={handleRemoveTourGuide} />
+                </div>
+            )}
             <div className="flex justify-end">
               <div className='py-4 space-y-4'>
                 <p>Total Harga: <span className='font-bold'>Rp{totalPriceRupiah}</span></p>

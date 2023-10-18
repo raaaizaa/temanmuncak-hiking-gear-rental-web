@@ -32,7 +32,6 @@ export function AddTourGuide(mountain: string) {
     const existingGuide = tourGuide.length > 0 ? tourGuide[0] : null
 
     if (!existingGuide) {
-      // If there is no existing guide, add a new one
       const newGuide: tourGuideType = {
         mountain,
         rent: true,
@@ -40,7 +39,6 @@ export function AddTourGuide(mountain: string) {
       tourGuide = [newGuide]
 
       console.log('new tour guide: ', tourGuide)
-      // Update the localStorage with the modified tourGuide array
       localStorage.setItem('tourGuide', JSON.stringify(tourGuide))
       return true
     } else {
