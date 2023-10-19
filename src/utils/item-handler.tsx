@@ -80,3 +80,8 @@ export function AddItem(newItem: itemType) {
     return false
   }
 }
+
+export function Checkout() {
+  localStorage.removeItem('rentedItems')
+  localStorage.removeItem('tourGuide')
+}

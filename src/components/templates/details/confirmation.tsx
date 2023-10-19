@@ -1,7 +1,8 @@
 'use client'
 import Counter from '@/components/ui/counter/counter'
+import Success from '@/components/ui/success/success'
 import { itemType } from '@/types/item'
-import { AddItem } from '@/utils/add-item'
+import { AddItem } from '@/utils/item-handler'
 import { Button } from '@nextui-org/react'
 import Image from 'next/image'
 import React, { useState, useRef } from 'react'
@@ -85,7 +86,7 @@ export default function Confirmation({
   }
 
   return (
-    <div className="h-screen w-full fixed bg-black/50 top-0 z-50 left-0 transition-all duration-200 ease-in flex justify-center items-center">
+    <div className="h-full w-full fixed bg-black/50 top-0 z-50 left-0 transition-all duration-200 ease-in flex justify-center items-center">
       {!success && (
         <div className="bg-white h-fit w-fit lg:w-[750px] xl:w-[750px] rounded-3xl z-50 flex">
           <div className="block w-full h-full px-8 lg:px-12 xl:px-12 py-4 lg:py-8 xl:py-8">
@@ -160,21 +161,7 @@ export default function Confirmation({
         </div>
       )}
       {success && (
-        <div className="bg-white h-[400px] w-[350px] rounded-3xl z-50 flex items-center justify-center">
-          <div className="block space-y-8">
-            <div className="flex justify-center items-center">
-              <FaRegSmileWink size={72} />
-            </div>
-            <div>
-              <p className="text-xl">Barang berhasil ditambahkan!</p>
-            </div>
-            <Button
-              className="bg-[#3F6C29] text-white w-full"
-              onClick={() => setClick(false)}>
-              Kembali
-            </Button>
-          </div>
-        </div>
+        <Success message='Barang berhasil ditambahkan!' onClick={() => setClick(false)}/>
       )}
     </div>
   )

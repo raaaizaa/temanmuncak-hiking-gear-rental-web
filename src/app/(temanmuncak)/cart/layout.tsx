@@ -13,8 +13,8 @@ export default function Layout() {
   const [empty, setEmpty] = useState(false)
   const [mountain, setMountain] = useState('')
   const [totalPrice, setTotalPrice] = useState<number>(0)
-  const totalPriceRupiah = Intl.NumberFormat().format(totalPrice)
   const [checkout, setCheckout] = useState(false)
+  const totalPriceRupiah = Intl.NumberFormat().format(totalPrice)
 
   const handleRemoveItem = (itemName: string) => {
     const updatedCartItems = cartItems.filter((item) => item.name !== itemName)
@@ -42,7 +42,7 @@ export default function Layout() {
     const storedItems = JSON.parse(localStorage.getItem('rentedItems') || '[]')
     const tourGuideItems = JSON.parse(localStorage.getItem('tourGuide') || '[]')
 
-    if(tourGuideItems.length === 1){
+    if (tourGuideItems.length === 1) {
       setTourGuide(true)
     }
 
@@ -60,7 +60,11 @@ export default function Layout() {
       0
     )
     setTotalPrice(calculatedTotalPrice)
-  }, [])
+
+    if (tourGuide) {
+      setTotalPrice(calculatedTotalPrice + 200000)
+    }
+  }, [tourGuide])
 
   return (
     <div className="bg-white text-black px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-16">
@@ -90,13 +94,16 @@ export default function Layout() {
             ))}
             {tourGuide && (
               <div>
-                <p className='text-xl'>Pemandu perjalanan anda, </p>
+                <p className="text-xl">Pemandu perjalanan anda, </p>
                 <TourGuideCartCard onClick={handleRemoveTourGuide} />
-                </div>
+              </div>
             )}
             <div className="flex justify-end">
-              <div className='py-4 space-y-4'>
-                <p>Total Harga: <span className='font-bold'>Rp{totalPriceRupiah}</span></p>
+              <div className="py-4 space-y-4">
+                <p>
+                  Total Harga:{' '}
+                  <span className="font-bold">Rp{totalPriceRupiah}</span>
+                </p>
                 <Button
                   className="bg-[#3F6C29] hover:scale-105 text-white font-bold w-full"
                   onClick={handleCheckout}>
@@ -106,10 +113,11 @@ export default function Layout() {
             </div>
           </div>
           {checkout && (
-            <CheckoutConfirmation 
-            destination={mountain[0]}
-            totalPrice={totalPriceRupiah}
-            onClick={handleCheckout}/>
+            <CheckoutConfirmation
+              destination={mountain[0]}
+              totalPrice={totalPriceRupiah}
+              onClick={handleCheckout}
+            />
           )}
         </div>
       )}

@@ -5,6 +5,8 @@ import { format } from 'date-fns'
 import React, { useState } from 'react'
 import { DayPicker } from 'react-day-picker'
 import { FaRegQuestionCircle } from 'react-icons/fa'
+import Success from '@/components/ui/success/success'
+import { Checkout } from '@/utils/item-handler'
 
 interface props {
   destination: string
@@ -18,6 +20,7 @@ export default function CheckoutConfirmation({
   onClick,
 }: props) {
   const [selectedDay, setSelectedDay] = useState<Date>()
+  const [checkout, setCheckout] = useState(false)
 
   const footer = selectedDay ? (
     <p>
@@ -37,19 +40,29 @@ export default function CheckoutConfirmation({
     font-weight: bold; 
     color: red;
   }
-
+  
   .my-selected:hover:not([disabled]) { 
     color: red;
   }
-
+  
   .my-today { 
     font-weight: bold;
     
   }
-`
+  `
+
+  const handleConfirmation = () => {
+    setCheckout(true)
+    Checkout()
+    setTimeout(redirect, 1500)
+  }
+
+  const redirect = () => {
+    window.location.replace('/cart')
+  }
 
   return (
-    <div className=" z-50 h-screen w-full fixed bg-black/50 top-0 left-0 transition-all duration-200 ease-in flex justify-center items-center">
+    <div className=" z-50 h-full w-full fixed bg-black/50 top-0 left-0 transition-all duration-200 ease-in flex justify-center items-center">
       <style>{css}</style>
       <div className="bg-white h-fit w-[350px] lg:w-[700px] xl:w-[700px] rounded-3xl px-12">
         <div className="py-4 lg:py-8 xl:py-8">
@@ -99,7 +112,9 @@ export default function CheckoutConfirmation({
                       <p>Destinasi: {destination}</p>
                     </div>
                     <div className="w-full">
-                      <Button className="w-full bg-[#3F6C29] text-white font-bold">
+                      <Button
+                        className="w-full bg-[#3F6C29] text-white font-bold"
+                        onClick={handleConfirmation}>
                         Checkout
                       </Button>
                     </div>
@@ -118,6 +133,9 @@ export default function CheckoutConfirmation({
           </div>
         </div>
       </div>
+      {checkout && (
+        <Success message="Pembayaranmu akan diproses!" onClick={onClick} />
+      )}
     </div>
   )
 }

@@ -3,10 +3,12 @@ import { mountainItem } from '@/components/constants/mountain-item'
 import { packetItem, trekkingItem } from '@/components/constants/trekking-item'
 import Confirmation from '@/components/templates/details/confirmation'
 import TourGuideConfirmation from '@/components/templates/details/tourguide-confirmation'
+import Error from '@/components/ui/error/error'
+import Success from '@/components/ui/success/success'
 import TourGuideCard from '@/components/ui/tour-guide-card/tour-guide-card'
 import TrekkingItemCard from '@/components/ui/trekking-item-card/trekking-item-card'
 import { partialItemType } from '@/types/item'
-import { AddTourGuide } from '@/utils/add-item'
+import { AddTourGuide } from '@/utils/item-handler'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 
@@ -29,9 +31,11 @@ function decodeName(name: string) {
 export default function MountainDetail({ params }: props) {
   const [click, setClick] = useState(false)
   const [clickedItem, setclickedItem] = useState<partialItemType>()
-  const [tourGuideConfirmation, setTourGuideConfirmation] = useState(false)
+  const [tourGuideConfirmation, setTourGuideConfirmation] = useState(Boolean)
   const [mountain, setMountain] = useState<MountainType | undefined>()
   const mountainName = decodeName(params.mountain)
+  const [message, setMessage] = useState('')
+  const [success, setSuccess] = useState(false)
 
   useEffect(() => {
     if (mountainName) {
@@ -51,11 +55,19 @@ export default function MountainDetail({ params }: props) {
     setTourGuideConfirmation(!tourGuideConfirmation)
   }
 
+  const handleSuccess = () => {
+    setTourGuideConfirmation(false)
+    setSuccess(false)
+    setMessage('')
+  }
+
   const addTourGuide = () => {
     if (AddTourGuide(mountainName)) {
-      alert('Success added tour guide!')
+      setSuccess(true)
+      setMessage('Tour Guide berhasil ditambahkan!')
     } else {
-      alert('Error adding tour guide!')
+      setSuccess(false)
+      setMessage('Gagal!')
     }
   }
 
@@ -182,6 +194,10 @@ export default function MountainDetail({ params }: props) {
           onClick={addTourGuide}
           onClose={handleTourGuide}
         />
+      )}
+      {success && <Success message={message} onClick={handleSuccess} />}
+      {!success && message && (
+        <Error message={message} onClick={handleSuccess} />
       )}
     </div>
   )

@@ -13,7 +13,7 @@ export default function Sidebar({ isOpen, onClose }: props) {
     <div
       className={
         isOpen
-          ? 'h-screen w-full fixed bg-black/50 top-0 left-0 transition-all duration-200 ease-in'
+          ? 'h-full w-full fixed bg-black/50 top-0 left-0 transition-all duration-200 ease-in'
           : ''
       }>
       <div

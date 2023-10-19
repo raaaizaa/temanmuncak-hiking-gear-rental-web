@@ -15,7 +15,7 @@ export default function TourGuideCard({onClick}: props) {
       <CardFooter>
         <div className="text-start text-black p-5 w-full">
           <p className="font-bold text-xl">Tour Guide</p>
-          <p className="text-base">Rpxxx.xxx,xx</p>
+          <p className="text-base">Rp200,000</p>
           <Button variant="flat" className="w-full mt-4" onClick={onClick}>
             Sewa
           </Button>
