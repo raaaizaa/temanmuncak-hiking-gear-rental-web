@@ -1,8 +1,9 @@
 'use client'
 import React, { useState } from 'react'
-import ProfileInfo from './profileInfo'
-import ProfilePicture from './profilePitcure'
+import ProfileInfo from './profile-info'
+import ProfilePicture from './profile-picture'
 import AddressList from './address-list'
+
 
 type TabType = 'editProfile' | 'address' | 'payment'
 
