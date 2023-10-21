@@ -1,41 +1,41 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent } from 'react'
 
 export default function ProfileInfo() {
-  const [nama, setNama] = useState("Nama Anda");
-  const [tanggalLahir, setTanggalLahir] = useState("DD-MM-YYYY");
-  const [jenisKelamin, setJenisKelamin] = useState("Pria");
-  const [nomorTelepon, setNomorTelepon] = useState("08588612921");
-  const [email, setEmail] = useState("yourprofile@binus.ac.id");
+  const [nama, setNama] = useState('')
+  const [tanggalLahir, setTanggalLahir] = useState('DD-MM-YYYY')
+  const [jenisKelamin, setJenisKelamin] = useState('Pria')
+  const [nomorTelepon, setNomorTelepon] = useState('')
+  const [email, setEmail] = useState('')
 
   const handleNamaChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setNama(e.target.value);
-  };
+    setNama(e.target.value)
+  }
 
   const handleTanggalLahirChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setTanggalLahir(e.target.value);
-  };
+    setTanggalLahir(e.target.value)
+  }
 
   const handleJenisKelaminChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setJenisKelamin(e.target.value);
-  };
+    setJenisKelamin(e.target.value)
+  }
 
   const handleNomorTeleponChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setNomorTelepon(e.target.value);
-  };
+    setNomorTelepon(e.target.value)
+  }
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
+    setEmail(e.target.value)
+  }
 
   return (
-    <div className="p-5">
+    <div className="lg:p-5 xl:p-5 h-fit">
       <div className="pb-3">
         <h2 className="text-lg font-semibold mb-2">Nama</h2>
         <input
           type="text"
           value={nama}
           onChange={handleNamaChange}
-          className="text-sm text-gray-600 border rounded-md p-1"
+          className="text-sm text-gray-600 border rounded-md p-1 w-full"
         />
       </div>
       <div className="pb-3">
@@ -44,7 +44,7 @@ export default function ProfileInfo() {
           type="date"
           value={tanggalLahir}
           onChange={handleTanggalLahirChange}
-          className="text-sm text-gray-600 border rounded-md p-1"
+          className="text-sm text-gray-600 border rounded-md p-1 w-full"
         />
       </div>
       <div className="pb-3">
@@ -54,7 +54,7 @@ export default function ProfileInfo() {
             className="mx-1"
             type="radio"
             value="Pria"
-            checked={jenisKelamin === "Pria"}
+            checked={jenisKelamin === 'Pria'}
             onChange={handleJenisKelaminChange}
           />
           Pria
@@ -64,7 +64,7 @@ export default function ProfileInfo() {
             className="mx-1"
             type="radio"
             value="Wanita"
-            checked={jenisKelamin === "Wanita"}
+            checked={jenisKelamin === 'Wanita'}
             onChange={handleJenisKelaminChange}
           />
           Wanita
@@ -76,7 +76,7 @@ export default function ProfileInfo() {
           type="text"
           value={nomorTelepon}
           onChange={handleNomorTeleponChange}
-          className="text-sm text-gray-600 border rounded-md p-1"
+          className="text-sm w-full text-gray-600 border rounded-md p-1"
         />
       </div>
       <div className="pb-3">
@@ -85,9 +85,12 @@ export default function ProfileInfo() {
           type="email"
           value={email}
           onChange={handleEmailChange}
-          className="text-sm text-gray-600 border rounded-md p-1"
+          className="text-sm w-full text-gray-600 border rounded-md p-1"
         />
       </div>
+      <button className="bg-[#3F6C29] hover:bg-[#2D5124] text-white py-2 px-4 rounded cursor-pointer transition duration-300 self-end my-2 w-full">
+        Simpan
+      </button>
     </div>
-  );
+  )
 }

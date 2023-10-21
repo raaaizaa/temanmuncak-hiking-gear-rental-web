@@ -4,7 +4,7 @@ import { tourGuideType } from '@/types/tourguide'
 
 function checkMountain(items: itemType[], mountain: string) {
   if (isCartEmpty(items)) {
-    return true // Cart is available, any mountain can be added
+    return true
   }
 
   return items.some((item: itemType) => item.mountain === mountain)
@@ -38,11 +38,10 @@ export function AddTourGuide(mountain: string) {
       }
       tourGuide = [newGuide]
 
-      console.log('new tour guide: ', tourGuide)
+      
       localStorage.setItem('tourGuide', JSON.stringify(tourGuide))
       return true
     } else {
-      console.log('tour guide already exist with the same mountain')
     }
   }
 }
@@ -54,12 +53,11 @@ export function AddItem(newItem: itemType) {
   const cartIsEmpty = isCartEmpty(items)
   const mountainAvailable = checkMountain(items, newItem.mountain)
   const itemAvailable = checkItem(items, newItem.id)
-  console.log('items before added: ', items)
+  
 
   if (cartIsEmpty || (mountainAvailable && !itemAvailable)) {
     const updatedItems = [...items, newItem]
     localStorage.setItem('rentedItems', JSON.stringify(updatedItems))
-    console.log('items after added: ', updatedItems)
     return true
   } else if (!cartIsEmpty && mountainAvailable && itemAvailable) {
     const updatedItems = items.map((existingItem) => {
@@ -74,7 +72,6 @@ export function AddItem(newItem: itemType) {
       return existingItem
     })
     localStorage.setItem('rentedItems', JSON.stringify(updatedItems))
-    console.log('items after added: ', updatedItems)
     return true
   } else {
     return false

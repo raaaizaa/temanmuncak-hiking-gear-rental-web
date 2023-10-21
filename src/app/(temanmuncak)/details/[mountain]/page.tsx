@@ -7,12 +7,11 @@ interface props {
 }
 
 export default function Page({ params }: props) {
-  console.log(params.mountain)
   const router = useRouter()
 
   useEffect(() => {
     router.push(`/details/${params.mountain}`)
-  }, [params.mountain])
+  }, [params.mountain, router])
 
   return <div></div>
 }

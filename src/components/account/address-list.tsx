@@ -49,7 +49,7 @@ export default function ProfileInfo() {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div className="flex flex-col" >
       <button
         onClick={openModal}
         className="bg-[#3F6C29] hover:bg-[#2D5124] text-white py-2 px-4 rounded cursor-pointer transition duration-300 self-end my-2"
@@ -99,7 +99,7 @@ export default function ProfileInfo() {
       {addresses.map((address, index) => (
         <div
           key={index}
-          className="p-8 border border-solid border-lightgray-500 rounded-lg m-4"
+          className="p-8 border border-solid border-lightgray-500 rounded-lg my-4 xl:mx-4 lg:mx-4"
           style={{ minWidth: "99%" }}
         >
           <h2 className="text-lg font-semibold mb-2">{address.name}</h2>
