@@ -1,5 +1,4 @@
 import React, { useState, ChangeEvent } from 'react'
-import './Modal.css'
 
 export default function ProfileInfo() {
   const [addresses, setAddresses] = useState([
