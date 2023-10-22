@@ -11,7 +11,7 @@ export default function CartIsEmpty() {
         </div>
         <p className="text-2xl text-center">Keranjangmu masih kosong...</p>
         <Link href="/#mountain-list">
-          <p className="hover:underline">
+          <p className="text-center hover:underline">
             Ayo cari barang yang kamu mau biar keranjangmu nggak kosong!
           </p>
         </Link>

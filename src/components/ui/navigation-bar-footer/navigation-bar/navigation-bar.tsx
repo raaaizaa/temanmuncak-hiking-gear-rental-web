@@ -31,9 +31,9 @@ export default function Navbar() {
             <p
               className={`${
                 selectedItem === data.name
-                  ? 'underline underline-offset-4 font-bold text-xl'
+                  ? 'underline underline-offset-4 font-bold text-xl text-white'
                   : ''
-              } text-xl hover:font-bold transition-all ease-in duration-100 `}
+              } text-xl hover:font-bold transition-all ease-in duration-100 text-white`}
               onClick={() => setSelectedItem(data.name)}>
               {data.name}
             </p>
