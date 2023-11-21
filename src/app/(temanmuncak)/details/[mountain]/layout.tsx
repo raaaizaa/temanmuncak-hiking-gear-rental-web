@@ -22,6 +22,9 @@ interface MountainType {
   height: string
   location: string
   image: string
+  difficulty: number
+  beauty: number
+  accessibility: number
 }
 
 function decodeName(name: string) {
@@ -78,17 +81,37 @@ export default function MountainDetail({ params }: props) {
           <p className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold">
             {mountain?.name}
           </p>
-          <div className="py-4 lg:py-12 xl:py-12">
-            <p className="text-base lg:text-xl xl:text-2xl font-bold">Letak</p>
-            <p className="text-base lg:text-base xl:text-xl">
-              {mountain?.location}
-            </p>
-            <p className="text-base lg:text-xl xl:text-2xl font-bold">Tinggi</p>
-            <p className="text-base lg:text-base xl:text-xl">
-              {mountain?.height}
-            </p>
+          <div className="flex justify-between items-center">
+            <div className="py-4 lg:py-12 xl:py-12">
+              <p className="text-base lg:text-xl xl:text-2xl font-bold">
+                Letak
+              </p>
+              <p className="text-base lg:text-base xl:text-xl">
+                {mountain?.location}
+              </p>
+              <p className="text-base lg:text-xl xl:text-2xl font-bold">
+                Tinggi
+              </p>
+              <p className="text-base lg:text-base xl:text-xl">
+                {mountain?.height}
+              </p>
+            </div>
+            <div className="py-4 lg:py-12 xl:py-12">
+              <div className="flex gap-8 text-base">
+                <div>
+                  <p>Kesulitan:</p>
+                  <p>Keindahan:</p>
+                  <p>Aksesibilitas:</p>
+                </div>
+                <div>
+                  <p>{mountain?.difficulty}/5</p>
+                  <p>{mountain?.beauty}/5</p>
+                  <p>{mountain?.accessibility}/5</p>
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="text-justify py-4">
+          <div className="text-justify py-4" style={{ whiteSpace: 'pre-line' }}>
             <p>{mountain?.details}</p>
           </div>
         </div>
@@ -128,8 +151,8 @@ export default function MountainDetail({ params }: props) {
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-center space-x-16 bg-slate-100 w-full h-fit text-black px-4 sm:px-12 md:px-20 lg:px-20 xl:px-28 py-24">
-        <p className="text-3xl">
+      <div className="block lg:flex xl:flex items-center justify-center space-y-16 lg:space-y-0 xl:space-y-0 lg:space-x-16 xl:space-x-16 bg-slate-100 w-full h-fit text-black px-4 sm:px-12 md:px-20 lg:px-20 xl:px-28 py-24">
+        <p className="text-xl lg:text-3xl xl:text-3xl text-center">
           Butuh tour guide untuk memandu perjalanan anda?
         </p>
         <div className="flex justify-center items-center">

@@ -1,6 +1,6 @@
 'use client'
 import CustomDropdown from '@/components/ui/dropdown/custom-dropdown'
-import { Button } from '@nextui-org/react'
+import { Button, Checkbox } from '@nextui-org/react'
 import { format } from 'date-fns'
 import React, { useState } from 'react'
 import { DayPicker } from 'react-day-picker'
@@ -21,6 +21,49 @@ export default function CheckoutConfirmation({
 }: props) {
   const [selectedDay, setSelectedDay] = useState<Date>()
   const [checkout, setCheckout] = useState(false)
+  const [showTnC, setShowTnC] = useState(false)
+  const [checkbox, setCheckbox] = useState(false)
+
+  const termsAndCondition = `
+  1. Pemesanan dan Pembayaran:
+  
+  Pemesanan hiking gear dapat dilakukan melalui website kami.
+  Pembayaran penuh harus dilakukan pada saat pemesanan.
+  Hanya pembayaran yang sudah dikonfirmasi yang akan memastikan reservasi hiking gear.
+  2. Jaminan Peminjaman:
+  
+  Setiap peminjam wajib memberikan jaminan berupa kartu kredit atau dokumen identitas yang berlaku.
+  Jaminan akan dikembalikan sepenuhnya setelah pengembalian hiking gear dalam kondisi baik.
+  3. Durasi Peminjaman:
+  
+  Durasi peminjaman dihitung mulai dari waktu pengambilan hingga waktu pengembalian sesuai kesepakatan.
+  Perpanjangan peminjaman dapat dilakukan dengan persetujuan dari pihak penyedia.
+  4. Kondisi Hiking Gear:
+  
+  Peminjam bertanggung jawab untuk menjaga dan menggunakan hiking gear dengan baik.
+  Peminjam harus melaporkan kerusakan atau kehilangan segera kepada penyedia.
+  5. Pembatalan dan Pengembalian:
+  
+  Pembatalan peminjaman harus dilakukan paling lambat 24 jam sebelum waktu peminjaman.
+  Biaya pembatalan dapat dikenakan sesuai kebijakan yang berlaku.
+  6. Tanggung Jawab Penggunaan:
+  
+  Peminjam bertanggung jawab sepenuhnya atas keamanan dan kenyamanan penggunaan hiking gear.
+  Pihak penyedia tidak bertanggung jawab atas kecelakaan atau kerugian yang timbul selama penggunaan.
+  7. Peraturan Pengembalian Terlambat:
+  
+  Pengembalian hiking gear harus dilakukan sesuai kesepakatan waktu.
+  Biaya keterlambatan dapat dikenakan sesuai kebijakan yang berlaku.
+  8. Perubahan Syarat dan Ketentuan:
+  
+  Pihak penyedia berhak untuk merubah syarat dan ketentuan tanpa pemberitahuan sebelumnya.
+  Perubahan tersebut akan berlaku segera setelah diberitahukan.
+  9. Kebijakan Privasi:
+  
+  Data pribadi peminjam akan dijaga kerahasiaannya sesuai dengan kebijakan privasi yang berlaku.
+  Dengan melakukan pemesanan, Anda dianggap telah membaca, memahami, dan menyetujui semua syarat dan ketentuan yang tercantum di atas.
+  
+  Terakhir diperbarui pada November 2023.`
 
   const footer = selectedDay ? (
     <p>
@@ -52,9 +95,17 @@ export default function CheckoutConfirmation({
   `
 
   const handleConfirmation = () => {
-    setCheckout(true)
-    Checkout()
-    setTimeout(redirect, 1500)
+    if(checkbox){
+      setCheckout(true)
+      Checkout()
+      setTimeout(redirect, 1500)
+    }else{
+      alert('Baca dan setujui syarat dan ketentuannya dulu yuk!')
+    }
+  }
+
+  const handleTnC = () => {
+    setShowTnC(!showTnC)
   }
 
   const redirect = () => {
@@ -111,6 +162,17 @@ export default function CheckoutConfirmation({
                       <p className="font-bold">Total: Rp{totalPrice}</p>
                       <p>Destinasi: {destination}</p>
                     </div>
+                    <div className="flex items-center justify-center gap-2">
+                      <input type="checkbox" id="t&c" name="t&c" onClick={() => setCheckbox(!checkbox)}/>
+                      <label htmlFor="t&c" className="text-xs">
+                        Saya setuju dengan{' '}
+                        <span
+                          className="hover:underline hover:cursor-pointer"
+                          onClick={handleTnC}>
+                          syarat ketentuan
+                        </span>
+                      </label>
+                    </div>
                     <div className="w-full">
                       <Button
                         className="w-full bg-[#3F6C29] text-white font-bold"
@@ -135,6 +197,29 @@ export default function CheckoutConfirmation({
       </div>
       {checkout && (
         <Success message="Pembayaranmu akan diproses!" onClick={onClick} />
+      )}
+      {showTnC && (
+        <div className="z-50 h-full w-full fixed bg-black/50 top-0 left-0 transition-all duration-200 ease-in flex justify-center items-center">
+          <div className="bg-white h-fit w-fit mx-2 rounded-3xl px-12">
+            <div className="flex justify-center items-center">
+              <div className="py-8">
+                <p className="text-2xl text-center font-bold">
+                  Syarat dan Ketentuan TemanMuncak
+                </p>
+                <div className="h-[400px] overflow-scroll">
+                  <p style={{ whiteSpace: 'pre-line' }} className="text-sm">
+                    {termsAndCondition}
+                  </p>
+                </div>
+                <Button
+                  className="w-full bg-[#3F6C29] text-white font-bold mt-4"
+                  onClick={handleTnC}>
+                  Tutup
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   )
